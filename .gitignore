@@ -1,0 +1,54 @@
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# ==============================
+# Datos médicos
+# NO subir al repositorio
+# ==============================
+data/
+datasets/
+
+*.dcm
+*.dicom
+*.npy
+*.npz
+
+# Backups grandes
+*.tar
+*.tar.gz
+*.zip
+
+# ==============================
+# Modelos entrenados
+# ==============================
+*.pth
+*.pt
+*.ckpt
+
+# ==============================
+# Sistema operativo
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Variables locales
+# ==============================
+.env
+config/local.yaml

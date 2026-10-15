@@ -1,0 +1,54 @@
+project:
+  name: knee-mri-weak-supervision
+  seed: 42
+
+data:
+  root: "../RSNA_Knee"
+
+  train_csv: "raw/train.csv"
+
+  raw:
+    sagittal: "raw/sagittal"
+    axial: "raw/axial"
+
+  processed:
+    weak_labels: "processed/weak_labels"
+    sagittal_images: "processed/images_2_5d_uint8.npy"
+    sagittal_metadata: "processed/metadata_2_5d.csv"
+    axial_images: "processed/images_2_5d_axial_uint8.npy"
+    axial_metadata: "processed/metadata_2_5d_axial.csv"
+
+  manifests:
+    directory: "manifest"
+    sagittal: "manifest/manifest_sagittal_final.csv"
+    axial: "manifest/manifest_axial_final.csv"
+
+  checkpoints:
+    directory: "checkpoint"
+    
+model:
+  architecture: "efficientnet_b0"
+  representation: "2.5D"
+  plane: "sagittal"
+  loss: "weighted_focal"
+  focal_gamma: 2.0
+  threshold: 0.54
+  num_classes: 12
+
+training:
+  batch_size: 8
+  seed: 42
+
+labels:
+  - ACL
+  - MCL
+  - Medial Meniscus
+  - Lateral Meniscus
+  - Medial OA
+  - Lateral OA
+  - PF OA
+  - Effusion
+  - Synovitis
+  - Baker's
+  - Contusion
+  - Fracture

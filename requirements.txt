@@ -1,0 +1,7 @@
+PyYAML
+numpy
+pandas
+torch
+scikit-learn
+iterative-stratification
+langdetect

@@ -6,6 +6,7 @@ data:
   root: "../RSNA_Knee"
 
   train_csv: "raw/train.csv"
+  train_series_csv: "raw/train_series.csv"
 
   raw:
     sagittal: "raw/sagittal"

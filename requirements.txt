@@ -7,3 +7,6 @@ iterative-stratification
 langdetect
 pydicom
 matplotlib
+scipy
+Pillow
+tqdm

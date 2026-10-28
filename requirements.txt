@@ -11,3 +11,4 @@ scipy
 Pillow
 tqdm
 torchvision
+opencv-python-headless

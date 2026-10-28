@@ -12,3 +12,5 @@ Pillow
 tqdm
 torchvision
 opencv-python-headless
+ipykernel
+ipywidgets

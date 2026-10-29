@@ -94,3 +94,46 @@ La demostración del Notebook 06 usa el checkpoint **`best_ablacion_focal.pth`**
 ## Datos y uso responsable
 
 Respetar las condiciones de la fuente RSNA/Kaggle y no subir informes clínicos, DICOM, datos personales, tensores derivados o checkpoints sin confirmar antes que la licencia y las reglas de acceso lo permiten. `.gitignore` excluye varios formatos grandes, pero también se debe revisar manualmente cada archivo antes de publicarlo.
+
+
+## Reproducción de evaluaciones
+
+Las evaluaciones de los modelos CNN 2.5D y EfficientNet-B0
+pueden reproducirse a partir de los checkpoints entrenados,
+sin repetir el entrenamiento.
+
+### Requisitos
+
+- Python 3.12
+- Dependencias instaladas desde `requirements.txt`
+- Dataset y checkpoints disponibles en `../RSNA_Knee`
+- Kernel Jupyter `knee-mri-venv`
+
+### Preparación del entorno
+
+```cmd
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install nbconvert ipykernel
+.venv\Scripts\python.exe -m ipykernel install --user --name knee-mri-venv --display-name "Python (Knee MRI)"
+```
+
+### Validar los recursos
+
+```cmd
+.venv\Scripts\python.exe scripts\reproduce_evaluation.py
+```
+
+### Reproducir las evaluaciones
+
+```cmd
+.venv\Scripts\python.exe scripts\reproduce_evaluation.py --execute
+```
+
+Los notebooks ejecutados se guardan en `runs/evaluation/`.
+La ejecución puede actualizar archivos CSV y PNG derivados
+en `RSNA_Knee/processed`.
+
+Este procedimiento recupera los checkpoints existentes y
+recalcula las métricas. No reconstruye el entrenamiento
+desde los archivos DICOM originales.

@@ -51,4 +51,5 @@ Thumbs.db
 # Variables locales
 # ==============================
 .env
-config/local.yaml
+config/local.yamlruns/
+runs/

@@ -30,12 +30,16 @@ Estas cifras proceden de los experimentos del proyecto. La muestra GOLD es peque
 ## Estructura del repositorio
 
 ```text
+
 knee-mri-weak-supervision/
-├── config/config.yaml
-├── src/config.py
+├── config/
+│   └── config.yaml
+├── src/
+│   └── config.py
 ├── scripts/
 │   ├── run_pipeline.py
 │   ├── prepare_rebuild.py
+│   ├── run_full_rebuild.py
 │   ├── reproduce_evaluation.py
 │   └── reproduce_project.py
 ├── notebooks/
@@ -222,3 +226,31 @@ ni vuelve a entrenar los modelos.
 La reconstrucción de datos 01–03 fue comprobada por separado
 y produjo resultados idénticos a los archivos históricos.
 ```
+### Comando unificado de reproducción
+
+
+### Comando unificado de reproducción
+
+Desde la raíz del repositorio, ejecutar:
+
+```cmd
+.venv\Scripts\python.exe scripts\reproduce_project.py --rebuild --execute
+```
+
+Este comando realiza las siguientes operaciones:
+
+1. Prepara o reutiliza las reconstrucciones de los Notebooks 01, 02 y 03.
+2. Comprueba que las etiquetas WEAK, el manifiesto sagital, el tensor MRI 2.5D y sus metadatos coincidan con los archivos históricos.
+3. Ejecuta los Notebooks 04 y 05 recuperando los checkpoints previamente entrenados.
+4. Ejecuta el Notebook 06 para demostrar la inferencia de patologías de rodilla.
+
+Las reconstrucciones se almacenan en `runs/full_rebuild/` y los notebooks de evaluación ejecutados se guardan en `runs/evaluation/`.
+
+**Alcance y limitaciones:**
+
+- Si las reconstrucciones ya existen, se reutilizan y verifican sin generarlas nuevamente.
+- Si faltan todas las reconstrucciones, el ejecutor intenta generarlas a partir de los datos de entrada disponibles.
+- El procedimiento depende de los CSV, inventarios, archivos DICOM, tensores de referencia y checkpoints configurados localmente.
+- El comando no vuelve a entrenar los modelos desde pesos iniciales.
+- Las evaluaciones pueden actualizar CSV y PNG derivados en `RSNA_Knee/processed/`.
+- No se garantiza la ejecución únicamente con clonar el repositorio, porque los datos y checkpoints no están incluidos en GitHub.

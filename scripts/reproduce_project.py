@@ -183,10 +183,22 @@ def main():
         action="store_true",
         help="Reejecuta notebooks 04, 05 y 06",
     )
+    parser.add_argument(
+        "--rebuild",
+        action="store_true",
+        help="Prepara y verifica las etapas 01-03 antes de continuar",
+    )
+
     args = parser.parse_args()
 
     try:
-        verify_rebuild()
+        if args.rebuild:
+            run_command([
+                sys.executable,
+                str(ROOT / "scripts" / "run_full_rebuild.py"),
+            ])
+        else:
+            verify_rebuild()
 
         if args.execute:
             run_evaluations()

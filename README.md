@@ -33,7 +33,11 @@ Estas cifras proceden de los experimentos del proyecto. La muestra GOLD es peque
 knee-mri-weak-supervision/
 ├── config/config.yaml
 ├── src/config.py
-├── scripts/run_pipeline.py
+├── scripts/
+│   ├── run_pipeline.py
+│   ├── prepare_rebuild.py
+│   ├── reproduce_evaluation.py
+│   └── reproduce_project.py
 ├── notebooks/
 │   ├── 01_weak_label_extraction.ipynb
 │   ├── 02_mri_series_selection.ipynb

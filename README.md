@@ -137,3 +137,84 @@ en `RSNA_Knee/processed`.
 Este procedimiento recupera los checkpoints existentes y
 recalcula las métricas. No reconstruye el entrenamiento
 desde los archivos DICOM originales.
+
+
+## Reproducción unificada del proyecto
+
+El repositorio proporciona un procedimiento automatizado para verificar
+la reconstrucción de datos MRI y reproducir las evaluaciones de los
+modelos CNN 2.5D y EfficientNet-B0.
+
+### Requisitos previos
+
+- Python 3.12 y dependencias de `requirements.txt`.
+- Kernel Jupyter `knee-mri-venv`.
+- Datos RSNA_Knee disponibles según `config/config.yaml`.
+- Checkpoints de los modelos previamente entrenados.
+- Reconstrucciones de los Notebooks 01, 02 y 03 disponibles
+  en `runs/full_rebuild/`.
+
+### Verificar la reconstrucción de datos
+
+Desde la raíz del repositorio:
+
+```cmd
+.venv\Scripts\python.exe scripts\reproduce_project.py
+```
+
+Este comando compara los resultados reconstruidos con los históricos:
+
+- 500 estudios con etiquetas débiles.
+- 546 series MRI seleccionadas.
+- 546 tensores MRI 2.5D, píxel por píxel.
+- Metadatos de los 546 estudios.
+
+La verificación es de solo lectura y no modifica archivos.
+
+### Reproducir las evaluaciones e inferencias
+
+```cmd
+.venv\Scripts\python.exe scripts\reproduce_project.py --execute
+```
+
+Este comando:
+
+1. Verifica la reconstrucción de las etapas 01–03.
+2. Ejecuta el Notebook 04 recuperando los modelos CNN y EfficientNet-B0.
+3. Ejecuta el Notebook 05 para recalcular ablaciones, métricas
+   GOLD DEV/HOLDOUT y Grad-CAM.
+4. Ejecuta el Notebook 06 con una demostración de inferencia.
+
+### Resultados esperados
+
+| Experimento | AUC macro |
+|---|---:|
+| CNN desde cero, GOLD DEV | 0.6614 |
+| EfficientNet-B0, GOLD DEV | 0.7665 |
+| Weighted BCE sagital, GOLD DEV | 0.7360 |
+| Weighted Focal sagital, GOLD DEV | 0.7541 |
+| Weighted Focal axial, GOLD DEV | 0.7061 |
+| Weighted Focal sagital, GOLD HOLDOUT | 0.7107 |
+
+### Archivos generados
+
+- `runs/evaluation/`: notebooks 04 y 05 ejecutados.
+- `runs/full_rebuild/`: reconstrucciones 01–03 y
+  notebook 06 ejecutado.
+- `RSNA_Knee/processed/`: algunos CSV y PNG derivados
+  que pueden actualizarse al ejecutar los notebooks 04 y 05.
+
+La carpeta `runs/` está excluida mediante `.gitignore`.
+
+### Alcance de la reproducibilidad
+
+El comando unificado verifica las reconstrucciones previamente
+generadas de las etapas 01–03 y ejecuta las etapas 04–06
+utilizando checkpoints existentes.
+
+No reconstruye automáticamente las etapas 01–03 desde cero
+ni vuelve a entrenar los modelos.
+
+La reconstrucción de datos 01–03 fue comprobada por separado
+y produjo resultados idénticos a los archivos históricos.
+```

@@ -36,6 +36,8 @@ knee-mri-weak-supervision/
 │   └── config.yaml
 ├── src/
 │   └── config.py
+├── data/
+│   └── README.md
 ├── scripts/
 │   ├── run_pipeline.py
 │   ├── prepare_rebuild.py
